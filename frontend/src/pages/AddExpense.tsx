@@ -14,7 +14,7 @@ const AddExpense = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
-  const API = "http://127.0.0.1:8000";
+  const API = "https://api.udita.me";
 
   const uploadFile = async () => {
     if (!selectedFile) {

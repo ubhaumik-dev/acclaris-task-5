@@ -18,7 +18,7 @@ interface Expense{
 }
 
 const Home = () => {
-  const API = "http://127.0.0.1:8000";
+  const API = "https://api.udita.me";
   const[expenses, setExpenses] = useState<Expense[]>([])
   const [summary, setSummary] = useState<Record<string, number>>({});
    const fetchExpenses = async() =>{
@@ -43,7 +43,7 @@ const manualAdded = expenses.filter(
 
 useEffect(() => {
   axios
-    .get("http://127.0.0.1:8000/expenses/summary")
+    .get(`${API}/expenses/summary`)
     .then((res) => setSummary(res.data));
 }, []);
 

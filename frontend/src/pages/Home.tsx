@@ -1,8 +1,8 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import StatsCard from "../components/cards/StatsCard";
-import React, { useState, useEffect } from "react";
-import { Wallet, PieChart, Bot, Pencil } from "lucide-react";
+import  { useState, useEffect } from "react";
+import { Wallet,  Bot, Pencil } from "lucide-react";
 
 import ExpensePieChart from '../components/charts/ExpensePieChart'
 import axios from "axios";

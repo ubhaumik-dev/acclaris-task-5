@@ -2,8 +2,7 @@ import {
   LayoutDashboard,
   PlusCircle,
   Receipt,
-  FolderKanban,
-  BarChart3,
+
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";

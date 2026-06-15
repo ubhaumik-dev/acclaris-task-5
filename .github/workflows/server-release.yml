@@ -68,7 +68,7 @@ jobs:
             [ -n "$deploy_app_log_file" ] || deploy_app_log_file="app.log"
           
 
-            cd "$deploy_server_dir"
+           
             stashed="0"
             if [ -n "$(git status --porcelain)" ]; then
               git stash push -u -m "gha-auto-stash-$(date +%s)"

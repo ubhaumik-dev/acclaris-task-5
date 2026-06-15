@@ -61,6 +61,19 @@ jobs:
             deploy_app_log_file='${{ env.DEPLOY_APP_LOG_FILE }}'
 
             [ -n "$deploy_branch" ] || deploy_branch="main"
+
+            echo "DEPLOY_SERVER_DIR=$deploy_server_dir"
+
+            cd "$deploy_server_dir"
+
+            echo "Current directory:"
+            pwd
+
+            echo "Contents:"
+            ls -la
+
+            
+
             [ -n "$deploy_server_dir" ] || { echo "DEPLOY_SERVER_DIR is required"; exit 1; }
             [ -n "$deploy_venv_name" ] || deploy_venv_name="venv"
             [ -n "$deploy_app_start_command" ] || deploy_app_start_command="python3 app.py"

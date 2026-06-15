@@ -14,7 +14,7 @@ const AddExpense = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
-  const API = "https://api.udita.me";
+  const API = "http://127.0.0.1:8000";
 
   const uploadFile = async () => {
     if (!selectedFile) {
@@ -83,7 +83,7 @@ const AddExpense = () => {
 
       <div className="grid lg:grid-cols-2 gap-8">
 
-        {/* Upload Section */}
+       
         <div className="bg-white rounded-3xl shadow-lg p-6">
 
           <h2 className="text-xl font-semibold mb-5">
@@ -136,7 +136,7 @@ const AddExpense = () => {
           </button>
         </div>
 
-        {/* Form Section */}
+        
         <div className="bg-white rounded-3xl shadow-lg p-6">
 
           <div className="flex justify-between items-center mb-6">

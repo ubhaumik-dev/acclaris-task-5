@@ -10,7 +10,7 @@ interface Expense{
 }
 
 const Expenses = () => {
-const API = "https://api.udita.me";
+ const API = "http://127.0.0.1:8000";
   
  const[expenses, setExpenses] = useState<Expense[]>([])
   const fetchExpenses = async() =>{

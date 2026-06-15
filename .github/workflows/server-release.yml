@@ -21,7 +21,7 @@ jobs:
       DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
       DEPLOY_USER: ${{ vars.DEPLOY_USER }}
       DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
-      DEPLOY_SERVER_DIR: ${{ vars.DEPLOY_SERVER_DIR }}
+      DEPLOY_SERVER_DIR='/home/ubuntu/gitrepo/acclaris-task-5/backend'
       DEPLOY_VENV_NAME: ${{ vars.DEPLOY_VENV_NAME }}
       DEPLOY_APP_START_COMMAND: ${{ vars.DEPLOY_APP_START_COMMAND }}
       DEPLOY_APP_PROCESS_MATCH: ${{ vars.DEPLOY_APP_PROCESS_MATCH }}

@@ -3,3 +3,6 @@ uvicorn
 python-multipart
 pillow
 SQLAlchemy
+psycopg2
+dotenv
+google-generativeai

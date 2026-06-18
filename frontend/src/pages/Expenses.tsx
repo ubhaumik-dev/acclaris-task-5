@@ -1,5 +1,6 @@
 import  { useEffect, useState } from "react";
 import axios from "axios";
+import Sidebar from "../components/Sidebar";
 
 interface Expense{
     id:number,
@@ -10,7 +11,8 @@ interface Expense{
 }
 
 const Expenses = () => {
-const API = "https://api.udita.me";
+//const API = "https://api.udita.me";
+const API="http://127.0.0.1:8000"
   
  const[expenses, setExpenses] = useState<Expense[]>([])
   const fetchExpenses = async() =>{
@@ -21,11 +23,15 @@ const API = "https://api.udita.me";
     fetchExpenses();
   }, []);
  return (
-  <div className="min-h-screen bg-slate-100 p-8">
-    <div className="max-w-7xl mx-auto">
+ <div className="min-h-screen bg-slate-100 py-8">
+  <div className=" mx-auto flex gap-8">
+
+    <Sidebar />
+
+    <div className="flex-1">
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+      <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-4xl font-bold text-slate-800">
             Transactions
@@ -35,28 +41,23 @@ const API = "https://api.udita.me";
           </p>
         </div>
 
-        <div className="mt-4 md:mt-0">
-          <div className="bg-white px-6 py-4 rounded-2xl shadow">
-            <p className="text-sm text-slate-500">
-              Total Transactions
-            </p>
-            <h2 className="text-2xl font-bold text-violet-600">
-              {expenses.length}
-            </h2>
-          </div>
+        <div className="bg-white px-6 py-4 rounded-2xl shadow">
+          <p className="text-sm text-slate-500">
+            Total Transactions
+          </p>
+          <h2 className="text-2xl font-bold text-violet-600">
+            {expenses.length}
+          </h2>
         </div>
       </div>
 
-
       {/* Table */}
-
       <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-
         <div className="px-6 py-5 border-b">
-          <h2 className="text-xl font-semibold">
-            Expense History
-          </h2>
-        </div>
+          			<h2 className="text-xl font-semibold">
+           	 Expense History
+         	 </h2>
+       		 </div>
 
         {expenses.length === 0 ? (
           <div className="py-20 text-center">
@@ -156,8 +157,12 @@ const API = "https://api.udita.me";
           </div>
         )}
       </div>
+      
+
     </div>
+
   </div>
+</div>
 );
 };
 

@@ -18,7 +18,8 @@ interface Expense{
 }
 
 const Home = () => {
-  const API = "https://api.udita.me";
+  //const API = "https://api.udita.me";
+  const API="http://127.0.0.1:8000"
   const[expenses, setExpenses] = useState<Expense[]>([])
   const [summary, setSummary] = useState<Record<string, number>>({});
    const fetchExpenses = async() =>{

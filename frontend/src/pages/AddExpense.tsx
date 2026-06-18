@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const AddExpense = () => {
   const navigate= useNavigate();
@@ -14,7 +15,8 @@ const AddExpense = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
-  const API = "https://api.udita.me";
+  //const API = "https://api.udita.me";
+  const API= "http://127.0.0.1:8000"
 
   const uploadFile = async () => {
     if (!selectedFile) {
@@ -62,29 +64,36 @@ const AddExpense = () => {
   };
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(typeof file);
+    //console.log(typeof file);
     if (file) {
       setSelectedFile(file);
       setPreview(URL.createObjectURL(file));
     }
-  };return (
-  <div className="min-h-screen bg-slate-100 py-10 px-4">
-    <div className="max-w-6xl mx-auto">
+  };
+  return (
+  <div className="min-h-screen bg-slate-100">
+  <div className="flex">
+
+    <Sidebar />
+
+    <div className="flex-1 p-10">
 
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-slate-800">
           Add Expense
         </h1>
+
         <p className="text-slate-500 mt-2">
           Upload a receipt and let AI extract expense details automatically.
         </p>
       </div>
 
+      {/* Upload + AI Form */}
       <div className="grid lg:grid-cols-2 gap-8">
 
        
-        <div className="bg-white rounded-3xl shadow-lg p-6">
+        		<div className="bg-white rounded-3xl shadow-lg p-6">
 
           <h2 className="text-xl font-semibold mb-5">
             Upload Receipt
@@ -239,9 +248,11 @@ const AddExpense = () => {
             </div>
           )}
         </div>
-      </div>
+          </div>
     </div>
+
   </div>
+</div>
 );
 };
 

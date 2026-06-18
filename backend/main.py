@@ -27,7 +27,7 @@ app.add_middleware(
 )
 
 load_dotenv()
-API_KEY = os.getenv(API_KEY)
+API_KEY = os.getenv("API_KEY")
 genai.configure(api_key=API_KEY )
 
 model = genai.GenerativeModel("gemini-3.1-flash-lite")

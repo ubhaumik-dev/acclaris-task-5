@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Base, Expense
-import google.generativeai as genai
+
 from PIL import Image
 from datetime import datetime
 from schemas import ExpenseCreate
@@ -12,6 +12,9 @@ import io
 import json
 import os
 import shutil
+import requests
+import os
+import base64
 
 #create engine
 Base.metadata.create_all(bind=engine)
@@ -28,9 +31,9 @@ app.add_middleware(
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
-genai.configure(api_key=API_KEY )
 
-model = genai.GenerativeModel("gemini-3.1-flash-lite")
+
+
 
 UPLOAD_FOLDER = "uploads"
 
@@ -43,6 +46,43 @@ def get_db():
     finally:
         db.close()
 
+
+
+
+def generate_content(prompt: str, image_path: str):
+    with open(image_path, "rb") as img:
+        image_data = base64.b64encode(img.read()).decode("utf-8")
+
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent"
+
+    headers = {
+        "Content-Type": "application/json",
+        "X-goog-api-key": API_KEY
+    }
+
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": prompt
+                    },
+                    {
+                        "inline_data": {
+                            "mime_type": "image/jpeg",
+                            "data": image_data
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+
+    return response.json()
+
 #upload receipt
 @app.post("/ai/scan")
 async def scan_receipt(file: UploadFile = File(...), db:Session= Depends(get_db)):
@@ -52,7 +92,7 @@ async def scan_receipt(file: UploadFile = File(...), db:Session= Depends(get_db)
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    image = Image.open(file_path)
+   
 
     prompt = """
     Extract the following from this receipt
@@ -81,13 +121,13 @@ async def scan_receipt(file: UploadFile = File(...), db:Session= Depends(get_db)
       "description": ""
     }
     """
-    response = model.generate_content(
-        [prompt,image]
+    response = generate_content(
+        prompt,file_path
     )
     
-    text = response.text.strip()
-
-    text = text.replace("```json", "").replace("```","").strip()
+    
+    text = response["candidates"][0]["content"]["parts"][0]["text"]
+    text = text.replace("```json", "").replace("```", "").strip()
     parsed_data = json.loads(text)
 
     expense = Expense(
